@@ -1,8 +1,6 @@
 "use strict";
 const discord = require("discord.js");
-const fs = require('fs');
-
-const token = fs.readFileSync("token.txt", "utf8");
+const token = require("token.json");
 
 const client = new discord.Client({disableMentions: "all", partials: ['MESSAGE'], presence: {status: "idle", activity: {name: "discord go by.", type: "WATCHING"}}}, );
 
