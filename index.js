@@ -1,6 +1,6 @@
 "use strict";
 const discord = require("discord.js");
-const token = require("token.json");
+const token = require("./token.json");
 
 const client = new discord.Client({disableMentions: "all", partials: ['MESSAGE'], presence: {status: "idle", activity: {name: "discord go by.", type: "WATCHING"}}}, );
 
