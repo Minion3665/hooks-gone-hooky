@@ -2,7 +2,7 @@
 const discord = require("discord.js");
 const token = require("./token.json");
 
-const client = new discord.Client({disableMentions: "all", partials: ['MESSAGE'], presence: {status: "idle", activity: {name: "discord go by.", type: "WATCHING"}}}, );
+const client = new discord.Client({partials: ['MESSAGE'], presence: {status: "idle", activity: {name: "discord go by.", type: "WATCHING"}}}, );
 
 client.on('ready', () => {
     console.log(`By Minion3665 and ClicksMinutePer, running on nodejs ${process.version} with d.js ${discord.version}`);
@@ -28,11 +28,18 @@ client.on('message', async (message) => {
     let hook = message.webhookID ? await message.fetchWebhook() : null;
     let perms = message.channel.permissionsFor(message.guild.me);
     if (hook != null) {
-        if (message.mentions.everyone || message.mentions.members.length || message.mentions.roles.length) {
+        let mentions = message.mentions;
+        console.log(mentions.members.size);
+        console.log(mentions.roles.size);
+        if (mentions.everyone || mentions.members.size || mentions.roles.size) {
             if (perms.has("MANAGE_WEBHOOKS")) {
-                await hook.delete("Suspected raid");
+                try {
+                    await hook.delete("Suspected raid");
+                } catch (e) {}
                 if (perms.has("MANAGE_MESSAGES")) {
-                    await message.delete({reason: "Suspected raid"})
+                    try {
+                        await message.delete({reason: "Suspected raid"})
+                    } catch (e) {}
                 }
             }
             console.log(`Suspected raid on guild ${message.guild.name} (${message.guild.id}). 
@@ -43,7 +50,7 @@ client.on('message', async (message) => {
         }
     }
     if (!message.author.bot) {
-        if (message.mentions.has(message.guild.me)) {
+        if (message.mentions.has(message.guild.me, {ignoreRoles: true, ignoreEveryone: true})) {
             if (perms.has("SEND_MESSAGES")) {
                 if (perms.has("EMBED_LINKS")) {
                     await message.channel.send(
