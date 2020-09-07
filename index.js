@@ -48,8 +48,7 @@ client.on('message', async (message) => {
                 Hook PFP: ${hook.avatar}, 
                 Hook ID: ${hook.id}`);
         }
-    }
-    if (!message.author.bot) {
+    } elif (!message.author.bot) {
         if (message.mentions.has(message.guild.me, {ignoreRoles: true, ignoreEveryone: true})) {
             if (perms.has("SEND_MESSAGES")) {
                 if (perms.has("EMBED_LINKS")) {
