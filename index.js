@@ -29,8 +29,6 @@ client.on('message', async (message) => {
     let perms = message.channel.permissionsFor(message.guild.me);
     if (hook != null) {
         let mentions = message.mentions;
-        console.log(mentions.members.size);
-        console.log(mentions.roles.size);
         if (mentions.everyone || mentions.members.size || mentions.roles.size) {
             if (perms.has("MANAGE_WEBHOOKS")) {
                 try {
@@ -46,7 +44,8 @@ client.on('message', async (message) => {
                 Full message: ${message.content}, 
                 Hook name: ${hook.name}, 
                 Hook PFP: ${hook.avatar}, 
-                Hook ID: ${hook.id}`);
+                Hook ID: ${hook.id},
+                My permissions: ${perms.bitfield}`);
         }
     }
     if (!message.author.bot) {
