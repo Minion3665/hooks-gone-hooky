@@ -47,8 +47,7 @@ client.on('message', async (message) => {
                 Hook ID: ${hook.id},
                 My permissions: ${perms.bitfield}`);
         }
-    }
-    if (!message.author.bot) {
+    } else if (!message.author.bot) {
         if (message.mentions.has(message.guild.me, {ignoreRoles: true, ignoreEveryone: true})) {
             if (perms.has("SEND_MESSAGES")) {
                 if (perms.has("EMBED_LINKS")) {
